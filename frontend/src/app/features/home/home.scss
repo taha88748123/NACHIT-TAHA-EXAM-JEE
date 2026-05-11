@@ -1,0 +1,48 @@
+.page-title {
+  font-size: 2rem;
+  font-weight: 500;
+  margin: 0 0 8px;
+}
+
+.page-subtitle {
+  margin: 0 0 32px;
+  opacity: 0.75;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.dashboard-card {
+  transition: transform 200ms ease, box-shadow 200ms ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  }
+}
+
+.card-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+
+  mat-icon {
+    color: white;
+  }
+
+  &.avatar-clients {
+    background: linear-gradient(135deg, #7e57c2, #5e35b1);
+  }
+  &.avatar-contrats {
+    background: linear-gradient(135deg, #ff7043, #f4511e);
+  }
+  &.avatar-paiements {
+    background: linear-gradient(135deg, #26a69a, #00897b);
+  }
+}

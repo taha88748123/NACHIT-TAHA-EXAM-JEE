@@ -1,0 +1,55 @@
+<h1 class="page-title">Gestion des Contrats d'Assurance</h1>
+<p class="page-subtitle">
+  Connecté en tant que <strong>{{ username() }}</strong>
+  &nbsp;·&nbsp; Rôles : {{ roles().join(', ') }}
+</p>
+
+<div class="cards-grid">
+  <mat-card class="dashboard-card">
+    <mat-card-header>
+      <div mat-card-avatar class="card-avatar avatar-clients">
+        <mat-icon>people</mat-icon>
+      </div>
+      <mat-card-title>Clients</mat-card-title>
+      <mat-card-subtitle>Gérer les souscripteurs</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <p>Consulter, créer et modifier les clients de l'assurance.</p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-stroked-button color="primary">Accéder</button>
+    </mat-card-actions>
+  </mat-card>
+
+  <mat-card class="dashboard-card">
+    <mat-card-header>
+      <div mat-card-avatar class="card-avatar avatar-contrats">
+        <mat-icon>description</mat-icon>
+      </div>
+      <mat-card-title>Contrats</mat-card-title>
+      <mat-card-subtitle>Auto • Habitation • Santé</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <p>Souscrire, valider et résilier les contrats d'assurance.</p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-stroked-button color="primary">Accéder</button>
+    </mat-card-actions>
+  </mat-card>
+
+  <mat-card class="dashboard-card">
+    <mat-card-header>
+      <div mat-card-avatar class="card-avatar avatar-paiements">
+        <mat-icon>payments</mat-icon>
+      </div>
+      <mat-card-title>Paiements</mat-card-title>
+      <mat-card-subtitle>Suivi financier</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <p>Historique des paiements liés à chaque contrat.</p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-stroked-button color="primary">Accéder</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
