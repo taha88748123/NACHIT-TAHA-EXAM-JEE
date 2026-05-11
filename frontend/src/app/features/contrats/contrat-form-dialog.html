@@ -1,0 +1,123 @@
+<h2 mat-dialog-title>{{ isEdit ? 'Modifier le contrat' : 'Nouveau contrat' }}</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="form" class="dialog-form">
+
+    <mat-radio-group formControlName="type" class="type-group" [disabled]="isEdit">
+      <mat-radio-button value="AUTO">Automobile</mat-radio-button>
+      <mat-radio-button value="HABITATION">Habitation</mat-radio-button>
+      <mat-radio-button value="SANTE">Santé</mat-radio-button>
+    </mat-radio-group>
+
+    <div class="form-grid">
+      <mat-form-field appearance="outline">
+        <mat-label>Client</mat-label>
+        <mat-select formControlName="clientId">
+          @for (c of clients; track c.id) {
+            <mat-option [value]="c.id">{{ c.nom }} ({{ c.email }})</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Date de souscription</mat-label>
+        <input matInput type="date" formControlName="dateSouscription">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Statut</mat-label>
+        <mat-select formControlName="statut">
+          <mat-option value="EN_COURS">En cours</mat-option>
+          <mat-option value="VALIDE">Validé</mat-option>
+          <mat-option value="RESILIE">Résilié</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Cotisation (MAD)</mat-label>
+        <input matInput type="number" formControlName="montantCotisation">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Durée (mois)</mat-label>
+        <input matInput type="number" formControlName="dureeContrat">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Taux de couverture (%)</mat-label>
+        <input matInput type="number" formControlName="tauxCouverture">
+      </mat-form-field>
+    </div>
+
+    @if (type === 'AUTO') {
+      <div class="subtype-section">
+        <h3>Détails automobile</h3>
+        <div class="form-grid">
+          <mat-form-field appearance="outline">
+            <mat-label>Immatriculation</mat-label>
+            <input matInput formControlName="numImmatriculation">
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Marque</mat-label>
+            <input matInput formControlName="marque">
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Modèle</mat-label>
+            <input matInput formControlName="modele">
+          </mat-form-field>
+        </div>
+      </div>
+    }
+
+    @if (type === 'HABITATION') {
+      <div class="subtype-section">
+        <h3>Détails habitation</h3>
+        <div class="form-grid">
+          <mat-form-field appearance="outline">
+            <mat-label>Type de logement</mat-label>
+            <mat-select formControlName="typeLogement">
+              <mat-option value="APPARTEMENT">Appartement</mat-option>
+              <mat-option value="MAISON">Maison</mat-option>
+              <mat-option value="LOCAL_COMMERCIAL">Local commercial</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Adresse</mat-label>
+            <input matInput formControlName="adresse">
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Superficie (m²)</mat-label>
+            <input matInput type="number" formControlName="superficie">
+          </mat-form-field>
+        </div>
+      </div>
+    }
+
+    @if (type === 'SANTE') {
+      <div class="subtype-section">
+        <h3>Détails santé</h3>
+        <div class="form-grid">
+          <mat-form-field appearance="outline">
+            <mat-label>Niveau de couverture</mat-label>
+            <mat-select formControlName="niveauCouverture">
+              <mat-option value="BASIQUE">Basique</mat-option>
+              <mat-option value="INTERMEDIAIRE">Intermédiaire</mat-option>
+              <mat-option value="PREMIUM">Premium</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Nombre de personnes couvertes</mat-label>
+            <input matInput type="number" formControlName="nombrePersonnesCouvertes">
+          </mat-form-field>
+        </div>
+      </div>
+    }
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="close()">Annuler</button>
+  <button mat-flat-button color="primary" [disabled]="form.invalid" (click)="save()">
+    Enregistrer
+  </button>
+</mat-dialog-actions>

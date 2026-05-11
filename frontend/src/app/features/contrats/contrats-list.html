@@ -1,0 +1,75 @@
+<div class="header">
+  <div>
+    <h1>Contrats d'assurance</h1>
+    <p class="subtitle">{{ contrats().length }} contrat(s) au total</p>
+  </div>
+  <button mat-flat-button color="primary" (click)="openCreate()">
+    <mat-icon>add</mat-icon>
+    Nouveau contrat
+  </button>
+</div>
+
+<mat-card class="table-card">
+  <table mat-table [dataSource]="contrats()" class="full-width">
+
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef>ID</th>
+      <td mat-cell *matCellDef="let c">{{ c.id }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="type">
+      <th mat-header-cell *matHeaderCellDef>Type</th>
+      <td mat-cell *matCellDef="let c">
+        <mat-chip class="type-chip type-{{ c.typeContrat?.toLowerCase() }}">
+          {{ c.typeContrat }}
+        </mat-chip>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="statut">
+      <th mat-header-cell *matHeaderCellDef>Statut</th>
+      <td mat-cell *matCellDef="let c">
+        <mat-chip [color]="statutColor(c.statut)">{{ c.statut }}</mat-chip>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="clientId">
+      <th mat-header-cell *matHeaderCellDef>Client #</th>
+      <td mat-cell *matCellDef="let c">{{ c.clientId }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="montantCotisation">
+      <th mat-header-cell *matHeaderCellDef>Cotisation</th>
+      <td mat-cell *matCellDef="let c">{{ c.montantCotisation }} MAD</td>
+    </ng-container>
+
+    <ng-container matColumnDef="dateSouscription">
+      <th mat-header-cell *matHeaderCellDef>Souscription</th>
+      <td mat-cell *matCellDef="let c">{{ c.dateSouscription }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef class="actions-col">Actions</th>
+      <td mat-cell *matCellDef="let c" class="actions-col">
+        @if (c.statut !== 'VALIDE') {
+          <button mat-icon-button color="accent" (click)="valider(c)" title="Valider">
+            <mat-icon>check_circle</mat-icon>
+          </button>
+        }
+        <button mat-icon-button color="primary" (click)="openEdit(c)" title="Modifier">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="delete(c)" title="Supprimer">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+
+  @if (contrats().length === 0 && !loading()) {
+    <div class="empty">Aucun contrat à afficher.</div>
+  }
+</mat-card>

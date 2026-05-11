@@ -1,0 +1,53 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+
+  h1 {
+    margin: 0;
+    font-size: 1.8rem;
+    font-weight: 500;
+  }
+
+  .subtitle {
+    margin: 4px 0 0;
+    opacity: 0.7;
+    font-size: 0.9rem;
+  }
+}
+
+.table-card {
+  padding: 0;
+  overflow: hidden;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.actions-col {
+  width: 160px;
+  text-align: right;
+}
+
+.type-chip {
+  font-size: 0.75rem;
+  font-weight: 600;
+
+  &.type-auto {
+    background: rgba(126, 87, 194, 0.25);
+  }
+  &.type-habitation {
+    background: rgba(255, 112, 67, 0.25);
+  }
+  &.type-sante {
+    background: rgba(38, 166, 154, 0.25);
+  }
+}
+
+.empty {
+  padding: 32px;
+  text-align: center;
+  opacity: 0.6;
+}

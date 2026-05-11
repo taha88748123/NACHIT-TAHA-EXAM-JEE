@@ -4,11 +4,33 @@
   z-index: 1000;
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 16px;
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: inherit;
+  }
 
   .title {
     font-weight: 500;
     letter-spacing: 0.3px;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 4px;
+    margin-left: 16px;
+
+    a.active {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    mat-icon {
+      margin-right: 6px;
+    }
   }
 
   .spacer {
@@ -27,7 +49,7 @@
 }
 
 .app-content {
-  max-width: 1100px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 32px 24px 64px;
 

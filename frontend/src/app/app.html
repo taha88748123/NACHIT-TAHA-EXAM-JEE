@@ -1,7 +1,29 @@
 @if (isAuthenticated()) {
   <mat-toolbar color="primary" class="app-toolbar">
-    <mat-icon>shield</mat-icon>
-    <span class="title">{{ title }}</span>
+    <a routerLink="/" class="brand">
+      <mat-icon>shield</mat-icon>
+      <span class="title">{{ title }}</span>
+    </a>
+
+    <nav class="nav-links">
+      <a mat-button routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+        <mat-icon>dashboard</mat-icon>
+        Dashboard
+      </a>
+      <a mat-button routerLink="/clients" routerLinkActive="active">
+        <mat-icon>people</mat-icon>
+        Clients
+      </a>
+      <a mat-button routerLink="/contrats" routerLinkActive="active">
+        <mat-icon>description</mat-icon>
+        Contrats
+      </a>
+      <a mat-button routerLink="/paiements" routerLinkActive="active">
+        <mat-icon>payments</mat-icon>
+        Paiements
+      </a>
+    </nav>
+
     <span class="spacer"></span>
 
     <button mat-button [matMenuTriggerFor]="userMenu" class="user-button">

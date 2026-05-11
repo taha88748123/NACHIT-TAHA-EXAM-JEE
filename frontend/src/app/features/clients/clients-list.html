@@ -1,0 +1,49 @@
+<div class="header">
+  <div>
+    <h1>Clients</h1>
+    <p class="subtitle">{{ clients().length }} client(s) enregistré(s)</p>
+  </div>
+  <button mat-flat-button color="primary" (click)="openCreate()">
+    <mat-icon>add</mat-icon>
+    Ajouter un client
+  </button>
+</div>
+
+<mat-card class="table-card">
+  <table mat-table [dataSource]="clients()" class="full-width">
+
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef>ID</th>
+      <td mat-cell *matCellDef="let c">{{ c.id }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="nom">
+      <th mat-header-cell *matHeaderCellDef>Nom</th>
+      <td mat-cell *matCellDef="let c">{{ c.nom }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef>Email</th>
+      <td mat-cell *matCellDef="let c">{{ c.email }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef class="actions-col">Actions</th>
+      <td mat-cell *matCellDef="let c" class="actions-col">
+        <button mat-icon-button color="primary" (click)="openEdit(c)" aria-label="Modifier">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="delete(c)" aria-label="Supprimer">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+
+  @if (clients().length === 0 && !loading()) {
+    <div class="empty">Aucun client à afficher.</div>
+  }
+</mat-card>
