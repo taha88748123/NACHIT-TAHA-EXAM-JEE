@@ -5,10 +5,15 @@ import ma.nachit.taha.assurance_app.enums.*;
 import ma.nachit.taha.assurance_app.repositories.ClientRepository;
 import ma.nachit.taha.assurance_app.repositories.ContratRepository;
 import ma.nachit.taha.assurance_app.repositories.PaiementRepository;
+import ma.nachit.taha.assurance_app.security.entities.AppRole;
+import ma.nachit.taha.assurance_app.security.entities.AppUser;
+import ma.nachit.taha.assurance_app.security.repositories.AppRoleRepository;
+import ma.nachit.taha.assurance_app.security.repositories.AppUserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -23,8 +28,33 @@ public class AssuranceAppApplication {
     @Bean
     CommandLineRunner start(ClientRepository clientRepository,
                             ContratRepository contratRepository,
-                            PaiementRepository paiementRepository) {
+                            PaiementRepository paiementRepository,
+                            AppUserRepository appUserRepository,
+                            AppRoleRepository appRoleRepository,
+                            PasswordEncoder passwordEncoder) {
         return args -> {
+
+            AppRole roleClient = appRoleRepository.save(new AppRole(null, "ROLE_CLIENT"));
+            AppRole roleEmploye = appRoleRepository.save(new AppRole(null, "ROLE_EMPLOYE"));
+            AppRole roleAdmin = appRoleRepository.save(new AppRole(null, "ROLE_ADMIN"));
+
+            AppUser admin = new AppUser();
+            admin.setUsername("admin");
+            admin.setPassword(passwordEncoder.encode("admin123"));
+            admin.getRoles().add(roleAdmin);
+            appUserRepository.save(admin);
+
+            AppUser employe = new AppUser();
+            employe.setUsername("employe");
+            employe.setPassword(passwordEncoder.encode("employe123"));
+            employe.getRoles().add(roleEmploye);
+            appUserRepository.save(employe);
+
+            AppUser client = new AppUser();
+            client.setUsername("client");
+            client.setPassword(passwordEncoder.encode("client123"));
+            client.getRoles().add(roleClient);
+            appUserRepository.save(client);
 
             List<Client> clients = List.of(
                     new Client(null, "Hassan El Amrani", "hassan@mail.com", null),
@@ -171,9 +201,16 @@ public class AssuranceAppApplication {
 
             System.out.println("===========================================");
             System.out.println("Donnees inserees :");
+            System.out.println("  Users     : " + appUserRepository.count());
+            System.out.println("  Roles     : " + appRoleRepository.count());
             System.out.println("  Clients   : " + clientRepository.count());
             System.out.println("  Contrats  : " + contratRepository.count());
             System.out.println("  Paiements : " + paiementRepository.count());
+            System.out.println("===========================================");
+            System.out.println("Comptes de test (mot de passe = identique au login + '123') :");
+            System.out.println("  admin   / admin123    (ROLE_ADMIN)");
+            System.out.println("  employe / employe123  (ROLE_EMPLOYE)");
+            System.out.println("  client  / client123   (ROLE_CLIENT)");
             System.out.println("===========================================");
         };
     }
